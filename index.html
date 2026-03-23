@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maillé IA — Intelligence Artificielle pour PME</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1E293B; background: #fff; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; background: #0A1628;
+    padding: 18px 40px; display: flex; justify-content: space-between;
+    align-items: center; z-index: 100;
+  }
+  nav .logo { color: #fff; font-size: 22px; font-weight: 700; letter-spacing: 1px; }
+  nav .logo span { color: #D4A017; }
+  nav a {
+    color: #8BA8CC; text-decoration: none; margin-left: 30px;
+    font-size: 14px; transition: color 0.2s;
+  }
+  nav a:hover { color: #D4A017; }
+  nav .cta-nav {
+    background: #D4A017; color: #fff !important; padding: 10px 22px;
+    border-radius: 6px; font-weight: 600; margin-left: 30px;
+  }
+  nav .cta-nav:hover { background: #B8860B; }
+
+  /* HERO */
+  .hero {
+    background: #0A1628; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 20px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: rgba(212,160,23,0.06); top: -100px; right: -100px;
+  }
+  .hero::after {
+    content: ''; position: absolute;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: rgba(212,160,23,0.04); bottom: -80px; left: -80px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 800px; }
+  .hero-badge {
+    display: inline-block; background: rgba(212,160,23,0.15);
+    color: #D4A017; padding: 8px 20px; border-radius: 50px;
+    font-size: 13px; font-weight: 600; margin-bottom: 30px; letter-spacing: 1px;
+  }
+  .hero h1 {
+    font-size: 52px; font-weight: 800; color: #fff;
+    line-height: 1.15; margin-bottom: 24px;
+  }
+  .hero h1 span { color: #D4A017; }
+  .hero p {
+    font-size: 18px; color: #8BA8CC; line-height: 1.7;
+    margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;
+  }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: #D4A017; color: #fff; padding: 16px 36px;
+    border-radius: 8px; font-size: 16px; font-weight: 700;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #B8860B; }
+  .btn-secondary {
+    border: 2px solid #8BA8CC; color: #8BA8CC; padding: 16px 36px;
+    border-radius: 8px; font-size: 16px; font-weight: 600;
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: #D4A017; color: #D4A017; }
+
+  /* STATS */
+  .stats {
+    background: #F4F6FA; padding: 60px 40px;
+    display: flex; justify-content: center; gap: 60px; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat .number { font-size: 42px; font-weight: 800; color: #0A1628; }
+  .stat .number span { color: #D4A017; }
+  .stat .label { font-size: 14px; color: #64748B; margin-top: 4px; }
+
+  /* SECTIONS */
+  section { padding: 90px 40px; max-width: 1100px; margin: 0 auto; }
+  .section-tag {
+    color: #D4A017; font-size: 13px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  h2 { font-size: 38px; font-weight: 800; color: #0A1628; margin-bottom: 16px; line-height: 1.2; }
+  .subtitle { font-size: 17px; color: #64748B; line-height: 1.7; margin-bottom: 50px; max-width: 600px; }
+
+  /* PROBLÈMES */
+  .problems-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;
+  }
+  .problem-card {
+    background: #F4F6FA; border-radius: 12px; padding: 28px;
+    border-left: 4px solid #D4A017;
+  }
+  .problem-card .icon { font-size: 28px; margin-bottom: 14px; }
+  .problem-card h3 { font-size: 17px; font-weight: 700; color: #0A1628; margin-bottom: 8px; }
+  .problem-card p { font-size: 14px; color: #64748B; line-height: 1.6; }
+
+  /* SERVICES */
+  .services-bg { background: #0A1628; padding: 90px 40px; }
+  .services-inner { max-width: 1100px; margin: 0 auto; }
+  .services-bg .section-tag { color: #D4A017; }
+  .services-bg h2 { color: #fff; }
+  .services-bg .subtitle { color: #8BA8CC; }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
+  }
+  .service-card {
+    background: #0F2040; border-radius: 12px; padding: 32px;
+    border: 1px solid #1E3A6E; transition: border-color 0.2s;
+  }
+  .service-card:hover { border-color: #D4A017; }
+  .service-num { font-size: 32px; font-weight: 800; color: #D4A017; margin-bottom: 12px; }
+  .service-card h3 { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .service-card p { font-size: 14px; color: #8BA8CC; line-height: 1.6; }
+
+  /* PROCESSUS */
+  .process-steps {
+    display: flex; gap: 0; flex-wrap: wrap; margin-top: 40px;
+  }
+  .step {
+    flex: 1; min-width: 200px; text-align: center; padding: 30px 20px;
+    position: relative;
+  }
+  .step::after {
+    content: '→'; position: absolute; right: -12px; top: 50%;
+    transform: translateY(-50%); font-size: 24px; color: #D4A017;
+  }
+  .step:last-child::after { display: none; }
+  .step-num {
+    width: 56px; height: 56px; background: #D4A017; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 800; color: #fff;
+    margin: 0 auto 16px;
+  }
+  .step h3 { font-size: 16px; font-weight: 700; color: #0A1628; margin-bottom: 8px; }
+  .step p { font-size: 13px; color: #64748B; line-height: 1.5; }
+
+  /* ROI */
+  .roi-bg { background: #F4F6FA; padding: 90px 40px; }
+  .roi-inner { max-width: 1100px; margin: 0 auto; }
+  .roi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;
+  }
+  .roi-card {
+    background: #fff; border-radius: 12px; padding: 32px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  .roi-card .roi-icon { font-size: 32px; margin-bottom: 16px; }
+  .roi-card h3 { font-size: 17px; font-weight: 700; color: #0A1628; margin-bottom: 10px; }
+  .roi-card .roi-num { font-size: 36px; font-weight: 800; color: #D4A017; margin-bottom: 8px; }
+  .roi-card p { font-size: 14px; color: #64748B; line-height: 1.6; }
+
+  /* CTA SECTION */
+  .cta-section {
+    background: #0A1628; padding: 90px 40px; text-align: center;
+  }
+  .cta-section h2 { color: #fff; font-size: 40px; margin-bottom: 16px; }
+  .cta-section p { color: #8BA8CC; font-size: 17px; margin-bottom: 40px; }
+  .cta-box {
+    background: #0F2040; border-radius: 16px; padding: 50px 40px;
+    max-width: 600px; margin: 0 auto; border: 1px solid #1E3A6E;
+  }
+  .cta-box h3 { color: #fff; font-size: 24px; margin-bottom: 10px; }
+  .cta-box p { color: #8BA8CC; font-size: 15px; margin-bottom: 30px; }
+  .cta-box .btn-primary { display: inline-block; font-size: 18px; padding: 18px 48px; }
+  .cta-contacts { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+  .cta-contacts a { color: #8BA8CC; text-decoration: none; font-size: 15px; transition: color 0.2s; }
+  .cta-contacts a:hover { color: #D4A017; }
+  .cta-contacts span { color: #D4A017; margin-right: 8px; }
+
+  /* FOOTER */
+  footer {
+    background: #060D1A; padding: 40px; text-align: center;
+    color: #3A5A80; font-size: 14px;
+  }
+  footer .footer-logo { color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  footer .footer-logo span { color: #D4A017; }
+  footer a { color: #5A7BA8; text-decoration: none; margin: 0 12px; }
+  footer a:hover { color: #D4A017; }
+
+  @media (min-width: 769px) {
+    .slogan { display: block !important; }
+  }
+    .hero h1 { font-size: 34px; }
+    nav .links { display: none; }
+    .stats { gap: 30px; }
+    .step::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div style="display:flex; align-items:center; gap:16px;">
+    <div class="logo">Maillé <span>IA</span></div>
+    <div style="color:#D4A017; font-size:13px; font-style:italic; border-left:1px solid #1E3A6E; padding-left:16px; display:none;" class="slogan">L'IA qui optimise votre succès.</div>
+  </div>
+  <div class="links">
+    <a href="#services">Services</a>
+    <a href="#processus">Comment ça marche</a>
+    <a href="#contact">Nous joindre</a>
+    <a href="tel:8194210795" class="cta-nav">Appel gratuit →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">✨ Première action 100% gratuite — Sans engagement</div>
+    <h1>On s'occupe de <span>l'IA</span>,<br>vous vous occupez<br>de votre entreprise</h1>
+    <p>Maillé IA aide les PME locales à automatiser leurs tâches, augmenter leurs revenus et prendre de meilleures décisions — simplement et rapidement.</p>
+    <div class="hero-btns">
+      <a href="tel:8194210795" class="btn-primary">Appel gratuit de 30 min →</a>
+      <a href="#offre" class="btn-secondary">Notre offre de départ</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="number">6<span>-10h</span></div>
+    <div class="label">économisées par semaine*</div>
+  </div>
+  <div class="stat">
+    <div class="number"><span>+</span>20<span>%</span></div>
+    <div class="label">de revenus en moyenne*</div>
+  </div>
+  <div class="stat">
+    <div class="number">3<span>sem.</span></div>
+    <div class="label">délai de livraison moyen</div>
+  </div>
+  <div class="stat">
+    <div class="number">ROI <span>3x</span></div>
+    <div class="label">retour sur investissement*</div>
+  </div>
+  <div style="width:100%; text-align:center; font-size:12px; color:#94A3B8; margin-top:8px;">
+    * Sources : McKinsey Global Institute, HubSpot State of Marketing Report
+  </div>
+</div>
+
+<!-- PROBLÈMES -->
+<section id="problemes">
+  <div class="section-tag">Le problème</div>
+  <h2>Vous perdez du temps<br>et de l'argent chaque jour</h2>
+  <p class="subtitle">La plupart des PME gèrent encore manuellement des choses que l'IA peut faire automatiquement — en mieux et plus vite.</p>
+  <div class="problems-grid">
+    <div class="problem-card">
+      <div class="icon">⏱️</div>
+      <h3>Trop de tâches répétitives</h3>
+      <p>Répondre aux mêmes questions, faire des rapports manuels, relancer les clients — tout ça peut être automatisé.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">📉</div>
+      <h3>Des clients qui passent à travers</h3>
+      <p>Sans suivi automatique, vous perdez des ventes et des clients sans même le savoir.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">🔍</div>
+      <h3>Pas assez d'information</h3>
+      <p>Vous prenez des décisions sans avoir toutes les données. Un bon tableau de bord change tout.</p>
+    </div>
+    <div class="problem-card">
+      <div class="icon">💸</div>
+      <h3>De l'argent gaspillé</h3>
+      <p>Stocks mal gérés, personnel sur des tâches à faible valeur — il y a mieux à faire avec vos ressources.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<div class="services-bg" id="services">
+  <div class="services-inner">
+    <div class="section-tag">Ce qu'on fait</div>
+    <h2 style="color:#fff;">Des solutions concrètes<br>pour votre réalité</h2>
+    <p class="subtitle">On développe chaque solution sur mesure pour votre entreprise. Pas de logiciel générique — une vraie solution adaptée à vos besoins.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3>Chatbot & Service Client</h3>
+        <p>Un assistant intelligent qui répond à vos clients 24h/24, prend des rendez-vous et répond aux questions fréquentes — sans que vous ayez à intervenir.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3>Tableaux de Bord Automatiques</h3>
+        <p>Toutes vos données importantes au même endroit, mises à jour automatiquement. Prenez de meilleures décisions en un coup d'œil.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3>Automatisation Marketing</h3>
+        <p>Vos clients reçoivent automatiquement les bons messages au bon moment. Plus de ventes, moins d'efforts.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <h3>Gestion des Stocks Intelligente</h3>
+        <p>On prédit quand commander, évite les ruptures et réduit le surstockage. Moins de pertes, plus de profits.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <h3>Analyse & Optimisation des Prix</h3>
+        <p>On surveille vos concurrents et optimise vos prix automatiquement pour maximiser vos marges.</p>
+      </div>
+      <div class="service-card" style="border-color:#D4A017;">
+        <div class="service-num">⭐</div>
+        <h3>Solution Complète PME</h3>
+        <p>On transforme l'ensemble de vos opérations avec l'IA — de A à Z. La solution tout-inclus pour les entreprises qui veulent aller loin.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESSUS -->
+<section id="processus">
+  <div class="section-tag">Comment ça marche</div>
+  <h2>Simple comme 1, 2, 3</h2>
+  <p class="subtitle">Pas besoin de connaître l'IA. On s'occupe de tout — vous n'avez qu'à voir les résultats.</p>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>On se parle</h3>
+      <p>Un appel gratuit de 30 minutes pour comprendre votre entreprise et voir ce qu'on peut améliorer ensemble.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>On construit</h3>
+      <p>On développe votre solution sur mesure et on la déploie dans votre entreprise en 2 à 6 semaines.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Vous voyez les résultats</h3>
+      <p>On forme votre équipe, on assure le suivi, et vous commencez à économiser du temps et de l'argent.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROI -->
+<div class="roi-bg">
+  <div class="roi-inner">
+    <div class="section-tag">Les résultats</div>
+    <h2>Ce que ça change concrètement</h2>
+    <p class="subtitle" style="margin-bottom:40px;">Des chiffres réels, pas des promesses.</p>
+    <div class="roi-grid">
+      <div class="roi-card">
+        <div class="roi-icon">⏱️</div>
+        <div class="roi-num">6-10h</div>
+        <h3>par semaine récupérées</h3>
+        <p>Selon McKinsey, l'automatisation des tâches répétitives permet aux entreprises de récupérer en moyenne 6 à 10 heures par semaine par employé.</p>
+      </div>
+      <div class="roi-card">
+        <div class="roi-icon">📈</div>
+        <div class="roi-num">+20%</div>
+        <h3>de revenus en plus</h3>
+        <p>Selon HubSpot, les PME qui automatisent leur marketing et leur suivi client voient leurs revenus augmenter de 10 à 20% en moyenne.</p>
+      </div>
+      <div class="roi-card">
+        <div class="roi-icon">💰</div>
+        <div class="roi-num">3x</div>
+        <h3>retour sur investissement</h3>
+        <p>Les entreprises qui adoptent l'IA dans leurs opérations obtiennent en moyenne un retour sur investissement de 3x selon Forrester Research.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- OFFRE GRATUITE -->
+<div style="background:#D4A017; padding: 70px 40px; text-align:center;" id="offre">
+  <div style="max-width:800px; margin:0 auto;">
+    <div style="background:rgba(255,255,255,0.2); display:inline-block; padding:8px 20px; border-radius:50px; font-size:13px; font-weight:700; color:#fff; letter-spacing:1px; margin-bottom:20px;">OFFRE DE DÉPART</div>
+    <h2 style="color:#fff; font-size:40px; margin-bottom:16px; line-height:1.2;">Votre première action,<br>on la fait gratuitement</h2>
+    <p style="color:rgba(255,255,255,0.85); font-size:18px; line-height:1.7; margin-bottom:36px; max-width:600px; margin-left:auto; margin-right:auto;">On choisit ensemble la tâche qui vous fait le plus perdre du temps, et on l'automatise pour vous — gratuitement. Vous voyez les résultats avant de vous engager.</p>
+    <div style="display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-bottom:30px;">
+      <div style="background:rgba(255,255,255,0.15); border-radius:12px; padding:24px 32px; min-width:200px;">
+        <div style="font-size:32px; font-weight:800; color:#fff;">100%</div>
+        <div style="color:rgba(255,255,255,0.85); font-size:14px; margin-top:4px;">Gratuit</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.15); border-radius:12px; padding:24px 32px; min-width:200px;">
+        <div style="font-size:32px; font-weight:800; color:#fff;">0</div>
+        <div style="color:rgba(255,255,255,0.85); font-size:14px; margin-top:4px;">Engagement requis</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.15); border-radius:12px; padding:24px 32px; min-width:200px;">
+        <div style="font-size:32px; font-weight:800; color:#fff;">1</div>
+        <div style="color:rgba(255,255,255,0.85); font-size:14px; margin-top:4px;">Appel suffit</div>
+      </div>
+    </div>
+    <a href="tel:8194210795" style="background:#0A1628; color:#fff; padding:18px 48px; border-radius:8px; font-size:17px; font-weight:700; text-decoration:none; display:inline-block;">Réclamer mon action gratuite →</a>
+    <p style="color:rgba(255,255,255,0.7); font-size:13px; margin-top:16px;">Appelez le 819 421-0795 ou écrivez à info@maille-ia.com</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section" id="contact">
+  <h2>Parlons de votre<br>entreprise</h2>
+  <p>Un appel de 30 minutes suffit pour voir si on peut vous aider. C'est gratuit et sans engagement.</p>
+  <div class="cta-box">
+    <h3>Appelez-nous ou écrivez-nous</h3>
+    <p>On répond rapidement et on s'adapte à votre horaire.</p>
+    <a href="tel:8194210795" class="btn-primary">📞 Appeler maintenant →</a>
+    <div class="cta-contacts">
+      <a href="tel:8194210795"><span>📱</span>819 421-0795</a>
+      <a href="mailto:info@maille-ia.com"><span>✉️</span>info@maille-ia.com</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Maillé <span>IA</span></div>
+  <p style="margin-bottom:16px;">Intelligence Artificielle pour PME locales — Québec</p>
+  <div>
+    <a href="tel:8194210795">819 421-0795</a>
+    <a href="mailto:info@maille-ia.com">info@maille-ia.com</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Nous joindre</a>
+  </div>
+  <p style="margin-top:24px; font-size:12px;">© 2025 Maillé IA — Tous droits réservés</p>
+</footer>
+
+</body>
+</html>
